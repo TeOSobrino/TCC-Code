@@ -127,39 +127,8 @@ O script:
 4. coleta eventos;
 5. salva resultado em `benchmark-results/`.
 
-## 8. Comparar dummy vs modelo real
 
-Baseline 0 overhead:
-
-```bash
-./scripts/generate-topology.sh 6 2 dummy true
-./scripts/deploy-generated.sh
-./scripts/run-benchmark.sh UNSW-NB15 dummy true
-```
-
-Modelo real FL-NIDS:
-
-```bash
-./scripts/copy-model-to-pvc.sh /caminho/para/fl_model.h5
-./scripts/generate-topology.sh 6 2 flnids true
-./scripts/deploy-generated.sh
-./scripts/run-benchmark.sh UNSW-NB15 flnids true
-```
-
-Depois compare os campos:
-
-```json
-"metrics": {
-  "capture_ms": ...,
-  "feature_ms": ...,
-  "inference_ms": ...,
-  "cycle_ms": ...
-}
-```
-
-No modo dummy, `inference_ms` deve ficar próximo de zero, pois não há inferência real.
-
-## 9. Limpeza
+## 8. Limpeza
 
 ```bash
 ./scripts/delete-generated.sh
