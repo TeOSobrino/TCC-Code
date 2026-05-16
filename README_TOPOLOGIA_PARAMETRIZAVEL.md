@@ -66,33 +66,6 @@ iot-X → edge-Y → central-server
 
 Cada `edge-Y` funciona como agregador regional dummy. Ele recebe eventos dos dispositivos filhos e encaminha ao servidor central.
 
-## Diferença entre IoT e Edge
-
-Os manifests gerados configuram recursos diferentes:
-
-| Tipo | Capacidade |
-|---|---|
-| IoT | Menor CPU/RAM |
-| Edge | Maior CPU/RAM |
-| Central | Maior CPU/RAM |
-
-## Observação sobre rede
-
-Kubernetes normalmente usa uma rede flat entre pods. A árvore aqui é uma **topologia lógica de comunicação**, não uma árvore física L2/L3.
-
-Para uma árvore de rede estrita em nível de enlace/rede, seria necessário usar CNI avançado, Multus, Linux bridges, namespaces de rede manuais ou Mininet.
-
-
-## Benchmark 0 overhead
-
-Nesta versão, `MODEL_BACKEND=dummy` não executa nenhum modelo.
-Ele é usado como baseline de 0 overhead de inferência.
-
-```bash
-./scripts/generate-topology.sh 12 3 dummy true
-./scripts/deploy-generated.sh
-./scripts/run-benchmark.sh UNSW-NB15 dummy true
-```
 
 Para resumir resultados:
 
