@@ -1,0 +1,116 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pcap-replay-unsw
+  namespace: pcap-testbed
+spec:
+  schedule: "*/30 * * * *"
+  suspend: true
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: replayer
+              image: local/pcap-replayer:0.1
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                capabilities:
+                  add:
+                    - NET_RAW
+                    - NET_ADMIN
+              env:
+                - name: DATASET
+                  value: "UNSW-NB15"
+                - name: PCAP_FILE
+                  value: "/datasets/UNSW-NB15/sample.pcap"
+                - name: LOOP
+                  value: "1"
+                - name: PPS
+                  value: "200"
+              volumeMounts:
+                - name: datasets
+                  mountPath: /datasets
+          volumes:
+            - name: datasets
+              persistentVolumeClaim:
+                claimName: datasets-pvc
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pcap-replay-cic2017
+  namespace: pcap-testbed
+spec:
+  schedule: "*/30 * * * *"
+  suspend: true
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: replayer
+              image: local/pcap-replayer:0.1
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                capabilities:
+                  add:
+                    - NET_RAW
+                    - NET_ADMIN
+              env:
+                - name: DATASET
+                  value: "CIC-IDS2017"
+                - name: PCAP_FILE
+                  value: "/datasets/CIC-IDS2017/sample.pcap"
+                - name: LOOP
+                  value: "1"
+                - name: PPS
+                  value: "200"
+              volumeMounts:
+                - name: datasets
+                  mountPath: /datasets
+          volumes:
+            - name: datasets
+              persistentVolumeClaim:
+                claimName: datasets-pvc
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pcap-replay-cic2018
+  namespace: pcap-testbed
+spec:
+  schedule: "*/30 * * * *"
+  suspend: true
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: replayer
+              image: local/pcap-replayer:0.1
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                capabilities:
+                  add:
+                    - NET_RAW
+                    - NET_ADMIN
+              env:
+                - name: DATASET
+                  value: "CIC-IDS2018"
+                - name: PCAP_FILE
+                  value: "/datasets/CIC-IDS2018/sample.pcap"
+                - name: LOOP
+                  value: "1"
+                - name: PPS
+                  value: "200"
+              volumeMounts:
+                - name: datasets
+                  mountPath: /datasets
+          volumes:
+            - name: datasets
+              persistentVolumeClaim:
+                claimName: datasets-pvc

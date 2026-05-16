@@ -1,0 +1,56 @@
+namespace: pcap-testbed
+
+iot_devices: 12
+edge_nodes: 3
+
+images:
+  iot_agent: local/ids-agent:0.1
+  edge_node: local/edge-node:0.1
+  central_server: local/fl-server:0.1
+  pcap_replayer: local/pcap-replayer:0.1
+
+model:
+  enabled: true
+  backend: dummy
+  path: /models/fl_model.h5
+  tl: 4
+  features: 196
+  anomaly_threshold: 0.5
+
+capture:
+  interface: eth0
+  seconds: 20
+
+resources:
+  iot:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "300m"
+      memory: "256Mi"
+  edge:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "1500m"
+      memory: "2Gi"
+  central:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "2000m"
+      memory: "2Gi"
+
+datasets:
+  - name: UNSW-NB15
+    pcap_file: /datasets/UNSW-NB15/sample.pcap
+    pps: 200
+  - name: CIC-IDS2017
+    pcap_file: /datasets/CIC-IDS2017/sample.pcap
+    pps: 200
+  - name: CIC-IDS2018
+    pcap_file: /datasets/CIC-IDS2018/sample.pcap
+    pps: 200

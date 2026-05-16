@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ids-agent
+  namespace: pcap-testbed
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ids-agent
+  template:
+    metadata:
+      labels:
+        app: ids-agent
+    spec:
+      containers:
+        - name: ids-agent
+          image: local/ids-agent:0.1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              add:
+                - NET_RAW
+                - NET_ADMIN
+          envFrom:
+            - configMapRef:
+                name: testbed-config
+          volumeMounts:
+            - name: captures
+              mountPath: /captures
+            - name: models
+              mountPath: /models
+      volumes:
+        - name: captures
+          persistentVolumeClaim:
+            claimName: captures-pvc
+        - name: models
+          persistentVolumeClaim:
+            claimName: models-pvc

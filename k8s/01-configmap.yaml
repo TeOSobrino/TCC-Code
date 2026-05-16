@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testbed-config
+  namespace: pcap-testbed
+data:
+  SERVER_URL: "http://fl-server:8080"
+  CAPTURE_INTERFACE: "eth0"
+  CAPTURE_SECONDS: "20"
+
+  # true: executa inferência; false: apenas captura e envia logs.
+  MODEL_ENABLED: "true"
+
+  # dummy: modelo simulado; flnids: carrega /models/fl_model.h5
+  MODEL_BACKEND: "dummy"
+
+  MODEL_PATH: "/models/fl_model.h5"
+  MODEL_TL: "4"
+  MODEL_FEATURES: "196"
+  ANOMALY_THRESHOLD: "0.5"
