@@ -1,4 +1,6 @@
-# k3s PCAP Replay Testbed com IDS Federado Dummy
+# Segurança em IoT: Detecção de Ataques com Aprendizado Federado em Ambientes de Borda
+
+k3s PCAP Replay Testbed com IDS Federado Dummy
 
 Projeto-modelo para simular tráfego de datasets UNSW-NB15, CIC-IDS2017 e CIC-IDS2018 em um cluster k3s, usando:
 - `tcpreplay` para reproduzir PCAPs em tempo quase real;
